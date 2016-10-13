@@ -85,11 +85,15 @@ public class EditBlogPostTest {
 
         // Click on 'Update' button
         onView(allOf(withId(R.id.menu_save_post), withText("Update"), withContentDescription("Update"), isDisplayed())).perform(click());
+		
+		// Wait
+        idlingResource = startWaiting(shortWaitTime);
 
         // Assert the updated post title present on the Post screen
         onView(allOf(withId(R.id.text_title), withText(updatedBlogTitle))).check(matches(isDisplayed()));
 
         // Assert the updated share your story here(blog content) present on the Post screen
         onView(allOf(withId(R.id.text_excerpt), withText(updatedBlogContent))).check(matches(isDisplayed()));
+		stopWaiting(idlingResource);
     }
 }

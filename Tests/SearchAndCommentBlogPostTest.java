@@ -68,10 +68,10 @@ public class SearchAndCommentBlogPostTest {
         onView(allOf(withId(R.id.menu_reader_search), withContentDescription("Search"), isDisplayed())).perform(click());
 
         // Type the Search String i.e.updated blog title
-        onView(allOf(withId(R.id.search_src_text), withParent(allOf(withId(R.id.search_plate), withParent(withId(R.id.search_edit_frame)))), isDisplayed())).perform(typeText(updatedBlogTitle), closeSoftKeyboard());
+        onView(allOf(withId(R.id.search_src_text), withParent(allOf(withId(R.id.search_plate), withParent(withId(R.id.search_edit_frame)))), isDisplayed())).perform(typeText(updatedBlogTitle.substring(3)), closeSoftKeyboard());
 
         // Click on search button on the keyboard
-        onView(allOf(withId(R.id.search_src_text), withText(updatedBlogTitle), withParent(allOf(withId(R.id.search_plate), withParent(withId(R.id.search_edit_frame)))), isDisplayed())).perform(pressImeActionButton());
+        onView(allOf(withId(R.id.search_src_text), withText(updatedBlogTitle.substring(3)), withParent(allOf(withId(R.id.search_plate), withParent(withId(R.id.search_edit_frame)))), isDisplayed())).perform(pressImeActionButton());
 
         // Wait
         IdlingResource idlingResource = startWaiting(shortWaitTime);

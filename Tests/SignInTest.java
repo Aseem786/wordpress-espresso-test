@@ -66,6 +66,5 @@ public class SignInTest {
 
         // Assert the main activity is present
         assertCurrentActivity(WPMainActivity.class);
-        //stopTiming(idlingResource);
     }
 }

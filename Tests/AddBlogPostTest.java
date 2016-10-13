@@ -77,11 +77,15 @@ public class AddBlogPostTest {
 
         // Click on 'Publish' button
         onView(allOf(withId(R.id.menu_save_post), withText("Publish"), withContentDescription("Publish"), isDisplayed())).perform(click());
+		
+		// Wait
+        idlingResource = startWaiting(shortWaitTime);
 
         // Assert the post title present on the Post screen
         onView(allOf(withId(R.id.text_title), withText(blogTitle))).check(matches(isDisplayed()));
 
         // Assert the share your story here(blog content) present on the Post screen
         onView(allOf(withId(R.id.text_excerpt), withText(blogContent))).check(matches(isDisplayed()));
+		stopWaiting(idlingResource);
     }
 }
