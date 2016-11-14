@@ -2,7 +2,23 @@ package Utils;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
-
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class ElapsedTimeIdlingResource
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: This class is used for register and unregister
+ ||                  resources for a specific time period.
+ ||
+ ||         Interfaces:  IdlingResource
+ ||
+ ||         Class Methods:  getName()
+ ||                         isIdleNow()
+ ||                         registerIdleTransitionCallback(ResourceCallback)
+ ||                         startWaiting(long)
+ ||                         stopWaiting(IdlingResource)
+ ++-----------------------------------------------------------------------*/
 public class ElapsedTimeIdlingResource implements IdlingResource {
     private long startTime;
     private final long waitTime;
@@ -24,6 +40,7 @@ public class ElapsedTimeIdlingResource implements IdlingResource {
         boolean idle = (elapsedTime >= waitTime);
         if (idle && resourceCallback != null) {
             resourceCallback.onTransitionToIdle();
+
         }
         return idle;
     }

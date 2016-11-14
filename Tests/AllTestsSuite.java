@@ -3,16 +3,22 @@ package Tests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-/**
- * Runs all instrumentation tests from one place
- */
-
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class AllTestsSuite
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: This class is used to execute all the test classes from one place.
+ ++-----------------------------------------------------------------------*/
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         SignInTest.class,
+        EditSiteTitleTest.class,
         AddBlogPostTest.class,
         EditBlogPostTest.class,
-        SearchAndCommentBlogPostTest.class,
+        LikeBlogPostTest.class,
+        CommentBlogPostTest.class,
         DeleteBlogPostTest.class})
 public class AllTestsSuite {
 

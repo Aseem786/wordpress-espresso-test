@@ -5,8 +5,18 @@ import java.util.Properties;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class ReadPropertiesUtils
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: This class is used for reading properties file.
+ ||
+ ||         Class Methods:  readProperties(String)
+ ++-----------------------------------------------------------------------*/
 public class ReadPropertiesUtils {
-    private static Properties properties;
+    private static Properties properties = null;
 
     /*--------------------------------------------------------------------------------------------------------------
     Function Name:- readProperties

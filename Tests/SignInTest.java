@@ -22,6 +22,22 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class SignInTest
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: This class is used to implement sign in test.
+ ||
+ ||         Scenario Steps:
+ ||         1) Fill the email field
+ ||         2) Fill the password field
+ ||         3) Click on Sign In button
+ ||         4) Verify the user sign in successfully
+ ||
+ ||         Class Methods:  signin()
+ ++-----------------------------------------------------------------------*/
 @RunWith(AndroidJUnit4.class)
 public class SignInTest {
     private static String email = ReadPropertiesUtils.readProperties("testData.properties").getProperty("email");

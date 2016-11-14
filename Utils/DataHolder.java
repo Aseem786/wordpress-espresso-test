@@ -3,7 +3,25 @@ package Utils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class DataHolder
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: This class is used to hold the data
+ ||                  which can be use in different test classes.
+ ||
+ ||         Class Methods:  getLength()
+ ||                         add(String, String)
+ ||                         get(String)
+ ||                         getAllKeys()
+ ||                         valueExists(String)
+ ||                         keyExists(String)
+ ||                         update(String, String)
+ ||                         remove(String)
+ ||                         reset()
+ ++-----------------------------------------------------------------------*/
 public class DataHolder {
     private static Map<String, String> DATA_HOLDER = new HashMap<String, String>();
 
@@ -22,7 +40,7 @@ public class DataHolder {
     -----------------------------------------------------------------------------------------------------------------
     */
     public static int getLength() {
-        return DataHolder.DATA_HOLDER.size();
+        return DATA_HOLDER.size();
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -40,7 +58,7 @@ public class DataHolder {
     -----------------------------------------------------------------------------------------------------------------
     */
     public static void add(String key, String value) {
-        DataHolder.DATA_HOLDER.put(key, value);
+        DATA_HOLDER.put(key, value);
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -61,7 +79,7 @@ public class DataHolder {
         if (!DataHolder.keyExists(key))
             return null;
 
-        return DataHolder.DATA_HOLDER.get(key);
+        return DATA_HOLDER.get(key);
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -79,7 +97,7 @@ public class DataHolder {
     -----------------------------------------------------------------------------------------------------------------
     */
     public static Set<String> getAllKeys() {
-        return DataHolder.DATA_HOLDER.keySet();
+        return DATA_HOLDER.keySet();
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -97,7 +115,7 @@ public class DataHolder {
     -----------------------------------------------------------------------------------------------------------------
     */
     public static boolean valueExists(String value) {
-        return DataHolder.DATA_HOLDER.containsValue(value);
+        return DATA_HOLDER.containsValue(value);
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -115,7 +133,7 @@ public class DataHolder {
     -----------------------------------------------------------------------------------------------------------------
     */
     public static boolean keyExists(String key) {
-        return DataHolder.DATA_HOLDER.containsKey(key);
+        return DATA_HOLDER.containsKey(key);
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -136,7 +154,7 @@ public class DataHolder {
     public static void update(String key, String value) {
         if (!DataHolder.keyExists(key))
             return;
-        DataHolder.DATA_HOLDER.put(key, value);
+        DATA_HOLDER.put(key, value);
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -156,7 +174,7 @@ public class DataHolder {
     public static void remove(String key) {
         if (!DataHolder.keyExists(key))
             return;
-        DataHolder.DATA_HOLDER.remove(key);
+        DATA_HOLDER.remove(key);
     }
 
     /*--------------------------------------------------------------------------------------------------------------
@@ -174,6 +192,6 @@ public class DataHolder {
     -----------------------------------------------------------------------------------------------------------------
     */
     public static void reset() {
-        DataHolder.DATA_HOLDER.clear();
+        DATA_HOLDER.clear();
     }
 }

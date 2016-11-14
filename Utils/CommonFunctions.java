@@ -1,72 +1,38 @@
 package Utils;
 
+import android.support.test.espresso.PerformException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.util.HumanReadables;
+import android.support.test.espresso.util.TreeIterables;
 import android.view.View;
 
 import org.hamcrest.Matcher;
 
-import java.util.Random;
+import java.util.concurrent.TimeoutException;
 
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class CommonFunctions
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: In this class, we have written some common functions
+ ||                  which can be used across the different test classes.
+ ||
+ ||         Class Methods:  waitId(int, long)
+ ||
+ ++-----------------------------------------------------------------------*/
 public class CommonFunctions {
-    private static final int STRING_LENGTH = 10;
-    private static final String CHARACTERS_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
-      /*--------------------------------------------------------------------------------------------------------------
-      Function Name:- generateRandomString
-      Functionality:- This method generates random string
-      Parameter1:- NA
-      Return Value:- Random String
-      Date created:-21-Sep-2016
-      Scripted By:-Aseem Tiwari
-      Script Reviewed by:-
-      -----------------------------------------------------------------------------------------------------------------
-      Date Modified   :
-      Modified By    :
-      Comments       :
-      -----------------------------------------------------------------------------------------------------------------
-      */
-    public static String generateRandomString(){
-        StringBuffer randomString = new StringBuffer();
-        for(int i=0; i<STRING_LENGTH; i++){
-            int number = getRandomNumber();
-            char character = CHARACTERS_LIST.charAt(number);
-            randomString.append(character);
-        }
-        return randomString.toString();
-    }
-
-      /*--------------------------------------------------------------------------------------------------------------
-      Function Name:- getRandomNumber
-      Functionality:- This method generates random numbers
-      Parameter1:- NA
-      Return Value:- Random Integer
-      Date created:-21-Sep-2016
-      Scripted By:-Aseem Tiwari
-      Script Reviewed by:-
-      -----------------------------------------------------------------------------------------------------------------
-      Date Modified   :
-      Modified By    :
-      Comments       :
-      -----------------------------------------------------------------------------------------------------------------
-      */
-    public static int getRandomNumber() {
-        int randomInteger = 0;
-        Random random = new Random();
-        randomInteger = random.nextInt(CHARACTERS_LIST.length());
-        if (randomInteger - 1 == -1) {
-            return randomInteger;
-        } else {
-            return randomInteger - 1;
-        }
-    }
-
     /*--------------------------------------------------------------------------------------------------------------
-    Function Name:- clickChildViewById
-    Functionality:- To click the child view by passing the Id
-    Parameter1:- id is the id of the child view
+    Function Name:- waitView
+    Functionality:- Perform action of waiting for a specific view.
+    Parameter1:- viewProperties is the properties of a view
+    Parameter2:- millis is the time to wait for view
     Return Value:- ViewAction
-    Date created:-26-Sep-2016
+    Date created:-28-Sep-2016
     Scripted By:-Aseem Tiwari
     Script Reviewed by:-
     -----------------------------------------------------------------------------------------------------------------
@@ -75,22 +41,44 @@ public class CommonFunctions {
     Comments       :
     -----------------------------------------------------------------------------------------------------------------
     */
-    public static ViewAction clickChildViewById(final int id) {
+    public static ViewAction waitView(final Matcher<View> viewProperties,final long millis) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
-                return null;
+                return isRoot();
             }
 
             @Override
             public String getDescription() {
-                return "Click on child view by specified id";
+                String description = "wait for a specific view with properties <" + viewProperties + "> during " + millis + " millis.";
+                return description;
             }
 
             @Override
-            public void perform(UiController uiController, View view) {
-                View v = view.findViewById(id);
-                v.performClick();
+            public void perform(final UiController uiController, final View view) {
+                uiController.loopMainThreadUntilIdle();
+                final long startTime = System.currentTimeMillis();
+                final long endTime = startTime + millis;
+                final Matcher<View> viewMatcher = viewProperties;
+
+                do {
+                    for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
+                        // found view with required ID
+                        if (viewMatcher.matches(child)) {
+                            return;
+                        }
+                    }
+
+                    uiController.loopMainThreadForAtLeast(Constants.DELAY);
+                }
+                while (System.currentTimeMillis() < endTime);
+
+                // timeout happens
+                throw new PerformException.Builder()
+                        .withActionDescription(this.getDescription())
+                        .withViewDescription(HumanReadables.describe(view))
+                        .withCause(new TimeoutException())
+                        .build();
             }
         };
     }

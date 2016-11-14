@@ -10,6 +10,18 @@ import static android.support.test.espresso.core.deps.guava.base.Preconditions.c
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static org.junit.Assert.assertTrue;
 
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class Assertions
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: In this class, we have written a function
+ ||                  for verifying current activity
+ ||
+ ||         Class Methods:  assertCurrentActivity(Class)
+ ||                         getInstanceOfActivity()
+ ++-----------------------------------------------------------------------*/
 public class Assertions {
     private static Activity currentActivity = null;
 
@@ -52,7 +64,7 @@ public class Assertions {
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
                 Collection activitiesResumed = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
-                if (activitiesResumed.iterator().hasNext()) {
+                if (activitiesResumed != null && activitiesResumed.iterator() != null && activitiesResumed.iterator().hasNext()) {
                     currentActivity = (Activity) activitiesResumed.iterator().next();
                 }
             }

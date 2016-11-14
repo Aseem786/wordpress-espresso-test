@@ -18,9 +18,19 @@ import java.util.Map;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
+/*+----------------------------------------------------------------------
+ ||
+ ||  Class ReadExcelUtils
+ ||
+ ||         Author:  Aseem Tiwari
+ ||
+ ||         Purpose: This class is used for reading excel sheet.
+ ||
+ ||         Class Methods:  readDataFromExcel(String, String)
+ ++-----------------------------------------------------------------------*/
 public class ReadExcelUtils {
-    private static String sourceFile;
-    private static Workbook workBook;
+    private static String sourceFile = null;
+    private static Workbook workBook = null;
 
     /*--------------------------------------------------------------------------------------------------------------
     Function Name:- readDataFromExcel
